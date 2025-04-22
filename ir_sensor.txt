@@ -1,0 +1,25 @@
+sudo apt install python3-pip
+pip3 install RPi.GPIO
+
+
+import RPi.GPIO as GPIO
+import time
+
+# Setup
+GPIO.setmode(GPIO.BCM)
+IR_PIN = 17  # GPIO pin connected to OUT
+GPIO.setup(IR_PIN, GPIO.IN)
+
+print("IR Sensor Test [press Ctrl+C to exit]")
+
+try:
+    while True:
+        if GPIO.input(IR_PIN) == 0:
+            print("Object Detected!")
+        else:
+            print("No Object")
+        time.sleep(0.5)
+
+except KeyboardInterrupt:
+    print("Exiting...")
+    GPIO.cleanup()

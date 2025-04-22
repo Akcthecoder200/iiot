@@ -1,0 +1,26 @@
+sudo raspi-config
+Go to Interface Options → I2C → Enable it
+Reboot after enabling.
+
+sudo apt update
+sudo apt install -y i2c-tools python3-pip python3-smbus
+pip3 install Adafruit-BMP
+
+
+//for verify
+i2cdetect -y 1
+
+
+
+import Adafruit_BMP.BMP085 as BMP085
+
+# Create sensor object using default I2C address (0x77)
+sensor = BMP085.BMP085()
+
+temperature = sensor.read_temperature()
+pressure = sensor.read_pressure()
+altitude = sensor.read_altitude()
+
+print(f"Temperature: {temperature:.2f} °C")
+print(f"Pressure: {pressure / 100:.2f} hPa")
+print(f"Approx. Altitude: {altitude:.2f} m")
